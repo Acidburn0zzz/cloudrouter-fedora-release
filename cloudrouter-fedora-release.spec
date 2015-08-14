@@ -14,7 +14,7 @@
 Summary:	%{cr_display_name} release files
 Name:		%{cr_name}-%{base_name}-release
 Version:	%{cr_version}
-Release:	1
+Release:	2
 License:	AGPLv3
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -90,11 +90,11 @@ for keyfile in RPM-GPG-KEY*; do
 done
 
 # and add symlink for compat generic location
-ln -s RPM-GPG-KEY-%{cr_name}-%{cr_version}-primary RPM-GPG-KEY-%{cr_version}-%{cr_name}
+ln -s RPM-GPG-KEY-%{cr_name}-%{cr_version}-primary RPM-GPG-KEY-%{cr_name}-latest-primary
 popd
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/yum.repos.d
-for file in cloudrouter*repo ; do
+for file in %{cr_name}*repo ; do
   install -m 644 $file $RPM_BUILD_ROOT/etc/yum.repos.d
 done
 
@@ -145,5 +145,8 @@ sed -i s/"^distroverpkg=.*$"/"distroverpkg=%{name}"/ /etc/yum.conf
 %doc README.%{cr_display_name}-Release-Notes
 
 %changelog
+* Fri Aug 14 2015 John Siegrist <john@complects.com> - 2-2
+- Fixed GPG key verification for RPMs downloaded from the CloudRouter repository.
+
 * Mon Aug 10 2015 John Siegrist <john@complects.com> - 2-1
 - Initial commit of the Fedora-specific CloudRouter-release project after splitting it into separate ones for Fedora and CentOS.
