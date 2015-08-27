@@ -26,6 +26,7 @@ Provides:	system-release(release)
 Provides:   cloudrouter-release
 BuildArch:	noarch
 Conflicts:	%{base_name}-release
+Conflicts:	cloudrouter-release-%{base_name}
 
 %description
 %{cr_display_name} release files such as yum configs and various /etc/ files that
