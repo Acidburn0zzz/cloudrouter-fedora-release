@@ -26,6 +26,13 @@ Provides:	redhat-release
 Provides:	system-release
 Provides:	system-release(release)
 Provides:   cloudrouter-release
+
+Provides:   fedora-release-server
+Provides:   system-release(%{base_version})
+Provides:   system-release-server
+Provides:   system-release-server(%{base_version})
+Provides:   system-release-product
+
 Requires:   cloudrouter-repo
 Requires:   fedora-repos(%{base_version})
 BuildArch:	noarch
@@ -41,6 +48,7 @@ Summary:	Release Notes
 License:	Open Publication
 Group:		System Environment/Base
 Provides:	system-release-notes = %{version}-%{release}
+Provides:   cloudrouter-release-notes
 Conflicts:	%{base_name}-release-notes
 
 %description notes
@@ -85,9 +93,9 @@ cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
 %%cr%{cr_version}		%{cr_version}
 EOF
 
-mkdir -p -m 755 $RPM_BUILD_ROOT%{_docdir}/%{cr_name}-%{base_name}-release/
-install -Dpm 644 %{SOURCE0} $RPM_BUILD_ROOT%{_docdir}/%{cr_name}-%{base_name}-release/
-install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_docdir}/%{cr_name}-%{base_name}-release/
+install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{cr_name}-%{base_name}-release
+install -m 644 %{SOURCE0} $RPM_BUILD_ROOT%{_docdir}/%{cr_name}-%{base_name}-release
+install -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_docdir}/%{cr_name}-%{base_name}-release
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -99,7 +107,7 @@ sed -i s/"^distroverpkg=.*$"/"distroverpkg=%{name}"/ /etc/yum.conf
 
 %files
 %defattr(-,root,root,-)
-%doc %{_docdir}/%{cr_name}-%{base_name}-release/%{SOURCE0}
+%doc %{_docdir}/%{cr_name}-%{base_name}-release/GNU-AGPL-3.0.txt
 %config %attr(0644,root,root) /etc/os-release
 %config %attr(0644,root,root) /etc/%{cr_name}-release
 /etc/redhat-release
@@ -112,7 +120,7 @@ sed -i s/"^distroverpkg=.*$"/"distroverpkg=%{name}"/ /etc/yum.conf
 
 %files notes
 %defattr(-,root,root,-)
-%doc %{_docdir}/%{cr_name}-%{base_name}-release/%{SOURCE1}
+%doc %{_docdir}/%{cr_name}-%{base_name}-release/README.CloudRouter-Release-Notes
 
 %changelog
 * Tue Dec 15 2015 John Siegrist <john@complects.com> - 3-1
