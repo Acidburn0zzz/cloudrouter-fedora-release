@@ -1,12 +1,13 @@
 %define cr_display_name CloudRouter
 %define cr_name cloudrouter
-%define cr_version 3
+%define cr_version 4
+%define cr_readme README.%{cr_display_name}-Release-Notes
 # Set this to 'Beta' or 'Release' depending on what type of release is pending.
 %define release_tag Release
 
-%define base_display_name Fedora 23
+%define base_display_name Fedora 24
 %define base_name fedora
-%define base_version 23
+%define base_version 24
 
 %define project_url http://cloudrouter.org
 %define bug_url https://cloudrouter.atlassian.net/secure/Dashboard.jspa
@@ -18,7 +19,7 @@ Release:	1
 License:	AGPLv3
 Group:		System Environment/Base
 Source0:	GNU-AGPL-3.0.txt
-Source1:	README.CloudRouter-Release-Notes
+Source1:	%{cr_readme}
 
 Obsoletes:	redhat-release
 Obsoletes:	%{cr_name}-release
@@ -34,10 +35,10 @@ Provides:   system-release-server(%{base_version})
 Provides:   system-release-product
 
 Requires:   cloudrouter-repo
+Requires:   cloudrouter-test-repo
 Requires:   fedora-repos(%{base_version})
 BuildArch:	noarch
 Conflicts:	%{base_name}-release
-Conflicts:	cloudrouter-release-%{base_name}
 
 %description
 %{cr_display_name} release files such as yum configs and various /etc/ files that
@@ -123,6 +124,10 @@ sed -i s/"^distroverpkg=.*$"/"distroverpkg=%{name}"/ /etc/yum.conf
 %doc %{_docdir}/%{cr_name}-%{base_name}-release/README.CloudRouter-Release-Notes
 
 %changelog
+* Mon Oct 10 2016 John Siegrist <john@complects.com> - 4-1
+- Rebase to F24 and bump version to CRv4.
+- Add dependency on CloudRouter test repo for pre-release testing.
+
 * Tue Dec 15 2015 John Siegrist <john@complects.com> - 3-1
 - Rebase to F23 and bump version to CRv3.
 
