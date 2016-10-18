@@ -15,7 +15,7 @@
 Summary:	%{cr_display_name} release files
 Name:		%{cr_name}-%{base_name}-release
 Version:	%{cr_version}
-Release:	1
+Release:	2
 License:	AGPLv3
 Group:		System Environment/Base
 Source0:	GNU-AGPL-3.0.txt
@@ -35,7 +35,6 @@ Provides:   system-release-server(%{base_version})
 Provides:   system-release-product
 
 Requires:   cloudrouter-repo
-Requires:   cloudrouter-test-repo
 Requires:   fedora-repos(%{base_version})
 BuildArch:	noarch
 Conflicts:	%{base_name}-release
@@ -124,6 +123,9 @@ sed -i s/"^distroverpkg=.*$"/"distroverpkg=%{name}"/ /etc/yum.conf
 %doc %{_docdir}/%{cr_name}-%{base_name}-release/README.CloudRouter-Release-Notes
 
 %changelog
+* Tue Oct 18 2016 John Siegrist <john@complects.com> - 4-2
+- Removed test-repo as dependency in preparation for GA of CRv4
+
 * Mon Oct 10 2016 John Siegrist <john@complects.com> - 4-1
 - Rebase to F24 and bump version to CRv4.
 - Add dependency on CloudRouter test repo for pre-release testing.
